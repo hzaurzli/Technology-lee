@@ -1,0 +1,59 @@
+#BSUB -J hisat2
+#BSUB -n 10
+#BSUB -R span[hosts=1]
+#BSUB -o hisat2.out
+#BSUB -e hisat2.err
+#BSUB -q normal
+#BSUB -m c01n08
+
+#cd /public/home/shuowang/Project/MH_ZS/MH_ZS_jwfeng
+#zcat flagleaf_MH63_HTLD_rep1_trim_1.fq.gz flagleaf_MH63_HTLD_rep2_trim_1.fq.gz flagleaf_MH63_HTSD_rep1_trim_1.fq.gz flagleaf_MH63_HTSD_rep2_trim_1.fq.gz flagleaf_MH63_LTLD_rep1_trim_1.fq.gz flagleaf_MH63_LTLD_rep2_trim_1.fq.gz flagleaf_MH63_LTSD_rep1_trim_1.fq.gz flagleaf_MH63_LTSD_rep2_trim_1.fq.gz > flagleaf_MH63_1.fq
+#zcat flagleaf_MH63_HTLD_rep1_trim_2.fq.gz flagleaf_MH63_HTLD_rep2_trim_2.fq.gz flagleaf_MH63_HTSD_rep1_trim_2.fq.gz flagleaf_MH63_HTSD_rep2_trim_2.fq.gz flagleaf_MH63_LTLD_rep1_trim_2.fq.gz flagleaf_MH63_LTLD_rep2_trim_2.fq.gz flagleaf_MH63_LTSD_rep1_trim_2.fq.gz flagleaf_MH63_LTSD_rep2_trim_2.fq.gz > flagleaf_MH63_2.fq
+#zcat flagleaf_ZS97_HTLD_rep1_trim_1.fq.gz flagleaf_ZS97_HTLD_rep2_trim_1.fq.gz flagleaf_ZS97_HTSD_rep1_trim_1.fq.gz flagleaf_ZS97_HTSD_rep2_trim_1.fq.gz flagleaf_ZS97_LTLD_rep1_trim_1.fq.gz flagleaf_ZS97_LTLD_rep2_trim_1.fq.gz flagleaf_ZS97_LTSD_rep1_trim_1.fq.gz flagleaf_ZS97_LTSD_rep2_trim_1.fq.gz > flagleaf_ZS97_1.fq
+#zcat flagleaf_ZS97_HTLD_rep1_trim_2.fq.gz flagleaf_ZS97_HTLD_rep2_trim_2.fq.gz flagleaf_ZS97_HTSD_rep1_trim_2.fq.gz flagleaf_ZS97_HTSD_rep2_trim_2.fq.gz flagleaf_ZS97_LTLD_rep1_trim_2.fq.gz flagleaf_ZS97_LTLD_rep2_trim_2.fq.gz flagleaf_ZS97_LTSD_rep1_trim_2.fq.gz flagleaf_ZS97_LTSD_rep2_trim_2.fq.gz > flagleaf_ZS97_2.fq
+#zcat panicle_MH63_HTLD_rep1_trim_1.fq.gz panicle_MH63_HTLD_rep2_trim_1.fq.gz panicle_MH63_HTSD_rep1_trim_1.fq.gz panicle_MH63_HTSD_rep2_trim_1.fq.gz panicle_MH63_LTLD_rep1_trim_1.fq.gz panicle_MH63_LTLD_rep2_trim_1.fq.gz panicle_MH63_LTSD_rep1_trim_1.fq.gz panicle_MH63_LTSD_rep2_trim_1.fq.gz > panicle_MH63_1.fq
+#zcat panicle_MH63_HTLD_rep1_trim_2.fq.gz panicle_MH63_HTLD_rep2_trim_2.fq.gz panicle_MH63_HTSD_rep1_trim_2.fq.gz panicle_MH63_HTSD_rep2_trim_2.fq.gz panicle_MH63_LTLD_rep1_trim_2.fq.gz panicle_MH63_LTLD_rep2_trim_2.fq.gz panicle_MH63_LTSD_rep1_trim_2.fq.gz panicle_MH63_LTSD_rep2_trim_2.fq.gz > panicle_MH63_2.fq
+zcat panicle_ZS97_HTLD_rep1_trim_1.fq.gz panicle_ZS97_HTLD_rep2_trim_1.fq.gz panicle_ZS97_HTSD_rep1_trim_1.fq.gz panicle_ZS97_HTSD_rep2_trim_1.fq.gz panicle_ZS97_LTLD_rep1_trim_1.fq.gz panicle_ZS97_LTLD_rep2_trim_1.fq.gz panicle_ZS97_LTSD_rep1_trim_1.fq.gz panicle_ZS97_LTSD_rep2_trim_1.fq.gz > panicle_ZS97_1.fq
+zcat panicle_ZS97_HTLD_rep1_trim_2.fq.gz panicle_ZS97_HTLD_rep2_trim_2.fq.gz panicle_ZS97_HTSD_rep1_trim_2.fq.gz panicle_ZS97_HTSD_rep2_trim_2.fq.gz panicle_ZS97_LTLD_rep1_trim_2.fq.gz panicle_ZS97_LTLD_rep2_trim_2.fq.gz panicle_ZS97_LTSD_rep1_trim_2.fq.gz panicle_ZS97_LTSD_rep2_trim_2.fq.gz > panicle_ZS97_2.fq
+
+
+cd /public/home/shuowang/Project/MH_ZS/MH_ZS_jwfeng/work
+#time hisat2-build ./MH63RS2.LNNK00000000.fasta ./MH63RS2.LNNK00000000.fasta -p 10
+time hisat2-build ./ZS97RS2.LNNJ00000000.fasta ./ZS97RS2.LNNJ00000000.fasta -p 10
+
+#time hisat2 -x ./MH63RS2.LNNK00000000.fasta -1 ../flagleaf_MH63_1.fq -2 ../flagleaf_MH63_2.fq -p 10 -S ./flagleaf_MH63.sam --rg-id "RG" --rg "LB:MHF" --rg "SM:MHF" --rg "PL:ILLUMINA"
+#time hisat2 -x ./ZS97RS2.LNNJ00000000.fasta -1 ../flagleaf_ZS97_1.fq -2 ../flagleaf_ZS97_2.fq -p 10 -S ./flagleaf_ZS97.sam --rg-id "RG" --rg "LB:ZSF" --rg "SM:ZSF" --rg "PL:ILLUMINA"
+#time hisat2 -x ./MH63RS2.LNNK00000000.fasta -1 ../panicle_MH63_1.fq -2 ../panicle_MH63_2.fq -p 10 -S ./panicle_MH63.sam --rg-id "RG" --rg "LB:MHP" --rg "SM:MHP" --rg "PL:ILLUMINA"
+time hisat2 -x ./ZS97RS2.LNNJ00000000.fasta -1 ../panicle_ZS97_1.fq -2 ../panicle_ZS97_2.fq -p 10 -S ./panicle_ZS97.sam --rg-id "RG" --rg "LB:ZSP" --rg "SM:ZSP" --rg "PL:ILLUMINA"
+
+
+#time samtools view -bS ./flagleaf_MH63.sam -o ./flagleaf_MH63.bam -@ 10
+#time samtools view -bS ./flagleaf_ZS97.sam -o ./flagleaf_ZS97.bam -@ 10
+#time samtools view -bS ./panicle_MH63.sam -o ./panicle_MH63.bam -@ 10
+time samtools view -bS ./panicle_ZS97.sam -o ./panicle_ZS97.bam -@ 10
+
+#time samtools sort ./flagleaf_MH63.bam -O bam -o ./flagleaf_MH63.sorted.bam -@ 10
+#time samtools sort ./flagleaf_ZS97.bam -O bam -o ./flagleaf_ZS97.sorted.bam -@ 10
+#time samtools sort ./panicle_MH63.bam -O bam -o ./panicle_MH63.sorted.bam -@ 10
+time samtools sort ./panicle_ZS97.bam -O bam -o ./panicle_ZS97.sorted.bam -@ 10
+
+#time gatk CreateSequenceDictionary -R ./MH63RS2.LNNK00000000.fasta -O ./MH63RS2.LNNK00000000.dict
+time gatk CreateSequenceDictionary -R ./ZS97RS2.LNNJ00000000.fasta -O ./ZS97RS2.LNNJ00000000.dict
+#time samtools faidx ./MH63RS2.LNNK00000000.fasta
+time samtools faidx ./ZS97RS2.LNNJ00000000.fasta
+
+#time gatk MarkDuplicates -I ./flagleaf_MH63.sorted.bam -O ./flagleaf_MH63.sorted.markup.bam -M ./flagleaf_MH63.sorted.markup_metrics.txt
+#time gatk MarkDuplicates -I ./flagleaf_ZS97.sorted.bam -O ./flagleaf_ZS97.sorted.markup.bam -M ./flagleaf_ZS97.sorted.markup_metrics.txt
+#time gatk MarkDuplicates -I ./panicle_MH63.sorted.bam -O ./panicle_MH63.sorted.markup.bam -M ./panicle_MH63.sorted.markup_metrics.txt
+time gatk MarkDuplicates -I ./panicle_ZS97.sorted.bam -O ./panicle_ZS97.sorted.markup.bam -M ./panicle_ZS97.sorted.markup_metrics.txt
+
+#time gatk SplitNCigarReads -R ./MH63RS2.LNNK00000000.fasta -I ./flagleaf_MH63.sorted.markup.bam -O ./flagleaf_MH63.sorted.markup.split.bam
+#time gatk SplitNCigarReads -R ./ZS97RS2.LNNJ00000000.fasta -I ./flagleaf_ZS97.sorted.markup.bam -O ./flagleaf_ZS97.sorted.markup.split.bam
+#time gatk SplitNCigarReads -R ./MH63RS2.LNNK00000000.fasta -I ./panicle_MH63.sorted.markup.bam -O ./panicle_MH63.sorted.markup.split.bam
+time gatk SplitNCigarReads -R ./ZS97RS2.LNNJ00000000.fasta -I ./panicle_ZS97.sorted.markup.bam -O ./panicle_ZS97.sorted.markup.split.bam
+
+#time gatk HaplotypeCaller -R ./MH63RS2.LNNK00000000.fasta -I ./flagleaf_MH63.sorted.markup.split.bam -O ./flagleaf_MH63.gg.vcf
+#time gatk HaplotypeCaller -R ./ZS97RS2.LNNJ00000000.fasta -I ./flagleaf_ZS97.sorted.markup.split.bam -O ./flagleaf_ZS97.gg.vcf
+#time gatk HaplotypeCaller -R ./MH63RS2.LNNK00000000.fasta -I ./panicle_MH63.sorted.markup.split.bam -O ./panicle_MH63.gg.vcf
+time gatk HaplotypeCaller -R ./ZS97RS2.LNNJ00000000.fasta -I ./panicle_ZS97.sorted.markup.split.bam -O ./panicle_ZS97.gg.vcf
+

@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1576321769 source:d:\codeblocks\c++script\project2\main.cpp
+	<iostream>
+	<vector>
+	<iterator>
+	<cmath>
+	<fstream>
+	<string>
+	<algorithm>
+
+1576321769 source:d:\codeblocks\c++script\dynamic programming\main.cpp
+	<iostream>
+	<vector>
+	<iterator>
+	<cmath>
+	<fstream>
+	<string>
+	<algorithm>
+
