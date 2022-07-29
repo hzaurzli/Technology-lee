@@ -1,0 +1,69 @@
+#bar
+go = read.csv("E:/R file/down7.csv",header=TRUE,row.names=1,check.names = FALSE)  
+p = ggplot(go,aes(GeneRatio,GO_term,fill = Pvalue)) + 
+  geom_bar(stat="identity") + 
+  scale_fill_gradient(limits=c(50,170)) +
+  scale_fill_gradient(low = 'red', high = 'blue3') +
+  theme_bw() +  theme(
+    panel.grid = element_blank(),
+    axis.title.x=element_text(size=15),
+    axis.title.y=element_text(size=15),
+    axis.text.x=element_text(size=14),
+    axis.text.y=element_text(size=14),
+    legend.title = element_text(size=13),
+    legend.text = element_text(size = 12)
+  )
+  
+#bubble
+library(ggplot2)
+pathway = read.csv("E:/R file/down3.csv",header=TRUE,row.names=1,check.names = FALSE)  
+p = ggplot(pathway)
+p=p + geom_bar(aes(Pathway,GeneRatio),stat="identity") + coord_flip()  
+# 展示三维数据
+p = p+ geom_bar(aes(color=-1*log10(Pvalue)),stat="identity")
+# 设置渐变色
+pr = p+scale_color_gradient(low="blue",high = "red")
+# 绘制p气泡图
+pr = p+labs(color=expression(-log[10](Pvalue)),size="Count",  
+             x="GeneRatio",y="",title="Biological process")
+pr + theme_bw() +  theme(
+  panel.grid = element_blank(),
+  axis.title.x=element_text(size=15),
+  axis.title.y=element_text(size=15),
+  axis.text.x=element_text(size=14),
+  axis.text.y=element_text(size=14),
+  legend.title = element_text(size=13),
+  legend.text = element_text(size = 12)
+)
+
+
+
+library(ggplot2)
+go = read.csv("E:/R file/down8.csv",header=TRUE,row.names=1,check.names = FALSE)  
+p = ggplot(go,aes(GeneRatio,GO_term))
+p=p + geom_point()  
+# 修稿点的大小
+p=p + geom_point(aes(size=Count))
+# 展示三维数据
+pbubble = p+ geom_point(aes(size=Count,color=Pvalue))
+# 设置渐变色
+pr = pbubble+scale_color_gradient(low="blue",high = "red")
+# 绘制p气泡图
+pr = pr+labs(color=expression(Pvalue),size="Count",  
+             x="GeneRatio",y="",title="component organization")
+pr + theme_bw() + theme(
+  panel.grid = element_blank(),
+  axis.title.x=element_text(size=18),
+  axis.title.y=element_text(size=30),
+  axis.text.x=element_text(size=18),
+  axis.text.y=element_text(size=30),
+  legend.title = element_text(size=18),
+  legend.text = element_text(size = 18),
+  plot.title  = element_text(size = 28)
+) + guides(size = guide_legend(order = 1)) ##调整图例顺序
+
+
+
+
+
+
