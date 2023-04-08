@@ -36,11 +36,13 @@ with open(out,'w') as ww:
         name = t.strip().split('#')[0]
         arg = t.strip().split('#')[1]
         if arg in dic[name]:
-            line = name + '\t' + arg + '\t' + '1' + '\n'
+            line = name + '\t' + arg.strip().split('|')[2] + '\t' + '1' + '\n'
             ww.write(line)
+            line = ''
         if arg not in dic[name]:
-            line = name + '\t' + arg + '\t' + '0' + '\n'
+            line = name + '\t' + arg.strip().split('|')[2] + '\t' + '0' + '\n'
             ww.write(line)
+            line = ''
 ww.close()
 
 os.remove(tmp)
