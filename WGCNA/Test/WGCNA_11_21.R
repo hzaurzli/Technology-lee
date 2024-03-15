@@ -75,10 +75,6 @@ save(MEs, moduleLabels, moduleColors, geneTree,
 
 
 ##表型与模块相关性##
-trainDt= allTraits[Rat, -1]
-rownames(trainDt) = samples[traitRows, 1]
-table(rownames(trainDt) == rownames(datExpr))
-
 moduleLabelsAutomatic = net$colors
 moduleColorsAutomatic = labels2colors(moduleLabelsAutomatic)
 moduleColorsWW = moduleColorsAutomatic
