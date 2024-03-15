@@ -6,7 +6,7 @@ options(stringsAsFactors = FALSE)
 enableWGCNAThreads()
 
 samples = read.table('Sam_info.txt',sep = '\t',row.names = 1,header = T)
-expro = read.table('ExpData.txt',sep = '\t',row.names = 1)
+expro = read.table('ExpData.txt',sep = '\t',row.names = 1,header = T)
 dim(expro)
 
 ##筛选方差前25%的基因##
