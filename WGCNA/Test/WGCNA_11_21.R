@@ -5,7 +5,7 @@ library(WGCNA)
 options(stringsAsFactors = FALSE)
 enableWGCNAThreads()
 
-samples = read.table('Sam_info.txt',sep = '\t',row.names = 1)
+samples = read.table('Sam_info.txt',sep = '\t',row.names = 1,header = T)
 expro = read.table('ExpData.txt',sep = '\t',row.names = 1)
 dim(expro)
 
