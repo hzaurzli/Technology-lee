@@ -5,8 +5,8 @@ library(WGCNA)
 options(stringsAsFactors = FALSE)
 enableWGCNAThreads()
 
-samples=read.csv('Sam_info.txt',sep = '\t',row.names = 1)
-expro=read.csv('ExpData.txt',sep = '\t',row.names = 1)
+samples = read.table('Sam_info.txt',sep = '\t',row.names = 1)
+expro = read.table('ExpData.txt',sep = '\t',row.names = 1)
 dim(expro)
 
 ##筛选方差前25%的基因##
