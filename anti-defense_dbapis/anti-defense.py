@@ -29,7 +29,6 @@ from subprocess import *
 import subprocess as sub
 import glob
 import shutil
-import biolib
 from Bio import SeqIO
 from Bio import AlignIO
 from Bio import pairwise2 as pw2
