@@ -41,8 +41,6 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 class tools:
     def __init__(self):
         self.prokka = 'prokka'
-        self.phispy = 'PhiSpy.py'
-        self.phanotate = 'phanotate.py'
         self.cdHit = 'cd-hit'
         self.hmmsearch = 'hmmsearch'
 
@@ -55,14 +53,6 @@ class tools:
 
     def run_prokka(self, fastain, fastaout, prefix, type_annotation):
         cmd = '%s %s -o %s --prefix %s --kingdom %s -force' % (self.prokka, fastain, fastaout,prefix,type_annotation)
-        return cmd
-
-    def run_phispy(self, gbk_input, out, profix, phage_genes):
-        cmd = '%s %s -o %s -p %s --threads 8 --phage_genes %s' % (self.phispy, gbk_input, out, profix, phage_genes)
-        return cmd
-
-    def run_phanotate(self, inputfile, out):
-        cmd = '%s %s -o %s' % (self.phanotate, inputfile, out)
         return cmd
 
     def run_cdhit(self,inputfile, out, cutoff):
@@ -293,7 +283,7 @@ if __name__ == "__main__":
           w.write(line)
         w.close()
         
-        os.system('rm -r ./orf_ffn/ ./phispy_out/ ./ppn/ ./prokka_result/')
+        os.system('rm -r ./prokka_result/')
         os.remove('./all_protein.faa')
         os.remove('./all_protein_ut.faa')
       
