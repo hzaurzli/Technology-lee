@@ -166,8 +166,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Lysin finder")
     parser.add_argument("-p", "--path", required=True, type=str, help="genome sequnce path")
     parser.add_argument("-t", "--type", required=True, type=str, help="prokka kingdom type")
-    parser.add_argument("-pp", "--prophage_method", required=False, default='phispy', type=str, help="prophage predict method")
-    parser.add_argument("-ds", "--dbscan_swa", required=False, type=str, default='', help="path of dbscan-swa.py")
     parser.add_argument("-c", "--cdhit_cutoff", default=0.95,required=False, type=float, help="cdhit cluster cutoff")
     parser.add_argument("-hc", "--hmmer_cutoff", default=1e-5,required=False, type=float, help="hmmer search cutoff")
     parser.add_argument("-hd", "--hmmer_db", required=True, type=str, help="reported lysin structures hmmer database path")
