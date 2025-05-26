@@ -312,7 +312,7 @@ if __name__ == "__main__":
                                    './all_protein_filter.faa')
         tl.run(cmd_5_p)
 
-        reported_lysin = Args.reported_lysin
+        reported_lysin = Args.reported_anti_defense
         if reported_lysin[0] == '.':
             if reported_lysin[1] == '/':
                 reported_lysin_suffix = reported_lysin[1:]
