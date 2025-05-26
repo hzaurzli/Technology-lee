@@ -54,10 +54,6 @@ class tools:
         cmd = '%s %s -o %s --prefix %s --kingdom %s -force' % (self.prokka, fastain, fastaout,prefix,type_annotation)
         return cmd
 
-    def run_cdhit(self,inputfile, out, cutoff):
-        cmd = '%s -i %s -o %s -c %s -M 0' % (self.cdHit, inputfile, out, cutoff)
-        return cmd
-
     def run_hmmsearch(self,tblout, e_val, hmm, inputfile):
         cmd = '%s --tblout %s -E %s --cpu 2 %s %s' % (self.hmmsearch, tblout, e_val, hmm, inputfile)
         return cmd
@@ -162,13 +158,12 @@ def find_pfam(cdhit_filter,lyase_list):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Lysin finder")
+    parser = argparse.ArgumentParser(description="Anti defense finder")
     parser.add_argument("-p", "--path", required=True, type=str, help="genome sequnce path")
     parser.add_argument("-t", "--type", required=True, type=str, help="prokka kingdom type")
-    parser.add_argument("-c", "--cdhit_cutoff", default=0.95,required=False, type=float, help="cdhit cluster cutoff")
     parser.add_argument("-hc", "--hmmer_cutoff", default=1e-5,required=False, type=float, help="hmmer search cutoff")
-    parser.add_argument("-hd", "--hmmer_db", required=True, type=str, help="reported lysin structures hmmer database path")
-    parser.add_argument("-rl", "--reported_lysin", required=True, type=str, help="reported lysin structures(hmm files)")
+    parser.add_argument("-hd", "--hmmer_db", required=True, type=str, help="reported anti defense hmmer database path")
+    parser.add_argument("-ra", "--reported_anti_defense", required=True, type=str, help="reported anti defense structures(hmm files)")
     parser.add_argument("-wkdir", "--workdir", required=True, type=str, help="work directory")
     parser.add_argument("-mu", "--MWU", required=False, default=50000, type=float, help="upper proteins molecular weight")
     parser.add_argument("-ml", "--MWL", required=False, default=10000, type=float, help="lower proteins molecular weight")
@@ -285,12 +280,8 @@ if __name__ == "__main__":
         os.remove('./all_protein_ut.faa')
       
       else:
-        # step 4 cdhit cluster
-        cmd_4 = tl.run_cdhit('./all_protein.faa','./all_protein_cdhit.faa', Args.cdhit_cutoff)
-        tl.run(cmd_4)
-
-        # step 5 calculate molecular weight
-        molecular_weight('./all_protein_cdhit.faa','./all_protein_cdhit_filter.faa', float(Args.MWU),float(Args.MWL))
+      # step 5 calculate molecular weight
+        molecular_weight('./all_protein.faa','./all_protein_filter.faa', float(Args.MWU),float(Args.MWL))
 
 
         # step 6 hmmsearch reported lysin structure in pfam
@@ -313,12 +304,12 @@ if __name__ == "__main__":
 
         cmd_5 = tl.run_hmmsearch('./hmmer_out/all_protein_filter_hmmer_out.txt', Args.hmmer_cutoff,
                                  curr_dir_hmmerdb + hmmer_db_suffix,
-                                 './all_protein_cdhit_filter.faa')
+                                 './all_protein_filter.faa')
         tl.run(cmd_5)
         
         cmd_5_p = tl.run_hmmsearch_2('./hmmer_out/all_protein.txt', Args.hmmer_cutoff,
                                    curr_dir_hmmerdb + hmmer_db_suffix,
-                                   './all_protein_cdhit_filter.faa')
+                                   './all_protein_filter.faa')
         tl.run(cmd_5_p)
 
         reported_lysin = Args.reported_lysin
@@ -333,7 +324,7 @@ if __name__ == "__main__":
             reported_lysin_suffix = reported_lysin
             curr_dir_rp = ''
 
-        find_pfam('./all_protein_cdhit_filter.faa', curr_dir_rp + reported_lysin_suffix)
+        find_pfam('./all_protein_filter.faa', curr_dir_rp + reported_lysin_suffix)
         
 
         # step 9 combine results of CAZY and pfam
@@ -406,4 +397,3 @@ if __name__ == "__main__":
         w.close()
               
               
-
