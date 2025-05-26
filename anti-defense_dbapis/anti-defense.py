@@ -165,6 +165,7 @@ if __name__ == "__main__":
     parser.add_argument("-hd", "--hmmer_db", required=True, type=str, help="reported anti defense hmmer database path")
     parser.add_argument("-ra", "--reported_anti_defense", required=True, type=str, help="reported anti defense structures(hmm files)")
     parser.add_argument("-wkdir", "--workdir", required=True, type=str, help="work directory")
+    parser.add_argument("-f", "--family_name", required=True, type=str, help="reported anti defense hmmer database path")
     parser.add_argument("-mu", "--MWU", required=False, default=50000, type=float, help="upper proteins molecular weight")
     parser.add_argument("-ml", "--MWL", required=False, default=10000, type=float, help="lower proteins molecular weight")
     Args = parser.parse_args()
@@ -366,6 +367,16 @@ if __name__ == "__main__":
         f1 = open('./MW_Length.txt')
         f2 = open('./Domain_Info.txt')
         
+        dic_name ={}
+        f = open(Args.family_name)
+        for i in f:
+          ii = i.strip().split(',')[0]
+          mm = i.strip().split(',')[1]
+          jj = i.strip().split(',')[3]
+          if jj != '':
+            dic_name[ii] = mm + ',' + jj
+          else:
+            dic_name[ii] ='Unknown'
         
         dic_info = {}
         for lines in f1:
@@ -382,7 +393,10 @@ if __name__ == "__main__":
         for lines in f2:
           line = lines.strip().split('\t')
           id_2 = line[0]
-          pf = line[1] + '&' + line[2] + '&' + line[3]
+          if line[1].split('(')[0] in dic_name:
+            pf = line[1] + '[' + dic_name[line[1].split('(')[0]] + ']' + '&' + line[2] + '&' + line[3]
+          else:
+            pf = line[1] + '[Unknown]' + '&' + line[2] + '&' + line[3]
           if id_2 in dic_info.keys():
             dic_info[id_2].append(pf)
         
